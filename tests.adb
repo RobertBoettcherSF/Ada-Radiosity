@@ -98,16 +98,17 @@ begin
    --  ========================================================================
    Put_Line ("TEST 1 -- Vector Algebra and Normalization Mechanics");
    declare
-      V1 : constant Vector_3D := (3.0, 4.0, 0.0);
-      V2 : constant Vector_3D := (1.0, 2.0, 2.0);
+      V1     : constant Vector_3D := (3.0, 4.0, 0.0);
+      V2     : constant Vector_3D := (1.0, 2.0, 2.0);
       V_Norm : constant Vector_3D := Normalize (V1);
+      V_Sum  : constant Vector_3D := V1 + V2;
    begin
       Check ("1.1 Magnitude of (3,4,0) is 5.0", Approx_Equal (Norm (V1), 5.0, 1.0e-6));
       Check ("1.2 Normalized vector has unit length", Approx_Equal (Norm (V_Norm), 1.0, 1.0e-6));
       Check ("1.3 Dot product of orthogonal vectors is zero",
              Approx_Equal (Dot_Product ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0)), 0.0, 1.0e-6));
       Check ("1.4 Vector addition gives component sum",
-             (V1 + V2).X = 4.0 and then (V1 + V2).Y = 6.0 and then (V1 + V2).Z = 2.0);
+             V_Sum.X = 4.0 and then V_Sum.Y = 6.0 and then V_Sum.Z = 2.0);
    end;
 
    --  ========================================================================
@@ -387,7 +388,7 @@ begin
             Area     => 1.0,
             Albedo   => 0.5,
             Emission => 42.0);
-         FF : Form_Factor_Matrix (1 .. 1, 1 .. 1) := (others => (others => 0.0));
+         FF : constant Form_Factor_Matrix (1 .. 1, 1 .. 1) := (others => (others => 0.0));
          Rad : Radiosity_Array (1 .. 1);
       begin
          Single_Scene.Append (P1);
@@ -412,7 +413,7 @@ begin
    end;
 
    --  ========================================================================
-   --  TEST 14: Progressive Shooting Conservation and Step Monotonicity
+   --  TEST 14: Progressive Shooting Monotonicity
    --  ========================================================================
    Put_Line ("TEST 14 -- Progressive Shooting Monotonicity");
    declare
