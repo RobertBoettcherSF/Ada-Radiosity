@@ -388,7 +388,7 @@ begin
             Area     => 1.0,
             Albedo   => 0.5,
             Emission => 42.0);
-         FF : constant Form_Factor_Matrix (1 .. 1, 1 .. 1) := (others => (others => 0.0));
+         FF : constant Form_Factor_Matrix (1 .. 1, 1 .. 1) := [others => [others => 0.0]];
          Rad : Radiosity_Array (1 .. 1);
       begin
          Single_Scene.Append (P1);
